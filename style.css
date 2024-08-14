@@ -1,0 +1,11 @@
+label {
+	display: block;
+	font-size: 20px;
+	margin-top: 20px;
+}
+
+input[type="time"] {
+	font-size: 50px;
+	text-align: center;
+	margin-top: 10px;
+}
