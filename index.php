@@ -2,153 +2,189 @@
 
 require 'bd.php';
 
+date_default_timezone_set('America/Santiago');
+
 $hoy = date("Y-m-d");
+$hora_actual = date("H:i");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>SeguimientoHoras</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <script src="js/bootstrap.bundle.min.js"></script>
-
-    <title>Horas
-    </title>
-</head>
-<style>
-    .main-container {
-        margin: 20px !important;
-    }
-
-    .boton {
-        margin-top: 10px !important;
-    }
-
-    @media screen and (max-width: 600px) {
-
-        .boton {
-            height: 70px;
-            width: 90%;
-            margin-left: 5%;
-            margin-right: 5%;
-        }
-
-        #mi-div {
-            height: 100%;
-        }
-
-    }
-
-    #mi-div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 180px;
-        width: 100%;
-    }
-
-    iframe {
-        width: 100%;
-        height: 175px;
-    }
-</style>
-
-<body>
-    <div class="col-sm">
-        <!--- Formulario para registrar Cliente --->
-
-        <button type="button" class="btn btn-primary boton" data-bs-toggle="modal" data-bs-target="#ingreso">
-            Ingreso
-        </button>
-        <button type="button" class="btn btn-secondary boton" data-bs-toggle="modal" data-bs-target="#colacion">
-            Inicio Colacion
-        </button>
-        <button type="button" class="btn btn-dark boton" data-bs-toggle="modal" data-bs-target="#fincolacion">
-            Fin Colacion
-        </button>
-        <button type="button" class="btn btn-success boton" data-bs-toggle="modal" data-bs-target="#salida">
-            Salida
-        </button>
-
-        <?php include('ModalIngreso.php');  ?>
-        <?php include('ModalColacion.php');  ?>
-        <?php include('ModalFin-Colacion.php');  ?>
-        <?php include('ModalSalida.php');  ?>
-
-        <button type="button" class="btn btn-outline-primary boton" data-bs-toggle="modal" data-bs-target="#ingreso2">
-            Ingreso
-        </button>
-        <button type="button" class="btn btn-outline-secondary boton" data-bs-toggle="modal" data-bs-target="#colacion2">
-            Inicio Colacion
-        </button>
-        <button type="button" class="btn btn-outline-dark boton" data-bs-toggle="modal" data-bs-target="#fincolacion2">
-            Fin Colacion
-        </button>
-        <button type="button" class="btn btn-outline-success boton" data-bs-toggle="modal" data-bs-target="#salida2">
-            Salida
-        </button>
-
-
-
-
-        <?php include('ModalIngreso copy.php');  ?>
-        <?php include('ModalColacion copy.php');  ?>
-        <?php include('ModalFin-Colacion copy.php');  ?>
-        <?php include('ModalSalida copy.php');  ?>
-
-    </div>
-    <!--
-    <div id="mi-div">
-		<iframe src="http://inventarioncc.infinityfreeapp.com/Horas/hora%20real/1.php" frameborder="0"></iframe>
-	</div>
-    -->
-
-    <?php include('./hora real/1.php');  ?>
-
-
-    <div class="main-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Dia</th>
-                    <th>Hora Ingreso</th>
-                    <th>Hora Colacion</th>
-                    <th>Hora Fin-Colacion</th>
-                    <th>Hora Salida</th>
-                    <th style="background-color:#004385;">Total Colacion</th>
-                    <th style="background-color:#5C6784;">Horas Final</th>
-                </tr>
-            </thead>
-            <?php
-
-            $sql = "SELECT * FROM `horas` WHERE YEAR(`Dia`) = YEAR(CURDATE()) ORDER BY `horas`.`Dia` DESC";
-            $result = mysqli_query($conexion, $sql);
-            //echo $sql;
-
-            while ($mostrar = mysqli_fetch_array($result)) {
-            ?>
-                <tr>
-                    <td><?php echo $mostrar['Dia'] ?></td>
-                    <td><?php echo $mostrar['Hora Ingreso'] ?></td>
-                    <td><?php echo $mostrar['Hora Colacion'] ?></td>
-                    <td><?php echo $mostrar['Hora Fin Colacion'] ?></td>
-                    <td><?php echo $mostrar['Hora Salida'] ?></td>
-                    <td><?php echo $mostrar['Total Colacion'] ?></td>
-                    <td><?php echo $mostrar['Horas Final'] ?></td>
-                </tr>
-            <?php
+    <style>
+        /* Custom responsive table styling */
+        @media screen and (max-width: 768px) {
+            .responsive-table tbody tr {
+                display: block;
+                margin-bottom: 1rem;
+                border: 1px solid #ddd;
             }
-            ?>
-        </table>
+
+            .responsive-table tbody td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.5rem;
+                border-bottom: 1px solid #eee;
+            }
+
+            .responsive-table tbody td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <!-- Digital Clock and Stats Section -->
+            <div class="relative">
+                <div class="absolute top-2 left-2 z-10">
+
+                    <button class="bg-gray-200 text-gray-700 p-2 rounded-full hover:bg-gray-300 transition duration-300 ease-in-out shadow-md">
+                        <a href="dashboard.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                            </svg>
+                        </a>
+                    </button>
+                </div>
+                <div id="date" class="text-center mt-4 text-2xl md:text-4xl text-gray-600 p-4 md:p-6"></div>
+            </div>
+
+
+            <!-- Responsive Stats Grid -->
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 md:p-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                    <div class="mb-4 md:mb-0">
+                        <h2 class="text-base md:text-lg font-semibold">Horas Trabajadas</h2>
+                        <p id="tiempo" class="text-2xl md:text-3xl font-bold">00:00:00</p>
+                    </div>
+                    <div class="mb-4 md:mb-0">
+                        <h2 class="text-base md:text-lg font-semibold">Hora Actual</h2>
+                        <p id="clock" class="text-2xl md:text-3xl font-bold">00:00:00</p>
+                    </div>
+                    <div>
+                        <h2 class="text-base md:text-lg font-semibold">Horas Faltantes</h2>
+                        <p id="countdown" class="text-2xl md:text-3xl font-bold">00:00:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="p-4 bg-gray-50 grid grid-cols-1 md:grid-cols-1 gap-1 md:gap-2">
+                <!-- Botón único para Entrada con ícono -->
+                <button
+                    class="btn btn-primary bg-blue-500 text-white p-2 md:p-3 rounded hover:bg-blue-600 text-sm md:text-base flex items-center justify-center"
+                    data-bs-toggle="modal"
+                    data-bs-target="#ingreso">
+
+                    <!-- Ícono de Font Awesome para Entrada (reemplaza con el que prefieras) -->
+                    <i class="fa fa-sign-in-alt mr-2"></i> <!-- Ícono de Entrada -->
+                    Entrada
+                </button>
+            </div>
+
+
+            <?php include('ModalIngreso.php'); ?>
+
+            <!-- Responsive History Table -->
+            <div class="p-4">
+                <div class="overflow-x-auto">
+                    <table class="w-full bg-white shadow-md rounded-lg responsive-table">
+                        <thead class="bg-gray-200 text-gray-600 uppercase text-xs md:text-sm leading-normal hidden md:table-header-group">
+                            <tr>
+                                <th class="py-3 px-2 md:px-6 text-left">Fecha</th>
+                                <th class="py-3 px-2 md:px-6 text-left">Entrada</th>
+                                <th class="py-3 px-2 md:px-6 text-left">Inicio Almuerzo</th>
+                                <th class="py-3 px-2 md:px-6 text-left">Fin Almuerzo</th>
+                                <th class="py-3 px-2 md:px-6 text-left">Salida</th>
+                                <th class="py-3 px-2 md:px-6 text-left bg-blue-100">Total Almuerzo</th>
+                                <th class="py-3 px-2 md:px-6 text-left bg-black-300">Total Horas</th>
+                                <th class="py-3 px-2 md:px-6 text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-600 text-xs md:text-sm font-light">
+                            <?php
+
+                            $sql = "SELECT * FROM `horas` ORDER BY `horas`.`Dia` DESC LIMIT 60;";
+                            $result = mysqli_query($conexion, $sql);
+                            //echo $sql;
+
+
+                            while ($mostrar = mysqli_fetch_array($result)) {
+                            ?>
+                                <tr class="border-b border-gray-200 hover:bg-gray-100 flex flex-col md:table-row">
+                                    <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell" data-label="Fecha">
+
+                                        <span><?php echo $mostrar['Dia'] ?></span>
+                                    </td>
+                                    <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell" data-label="Entrada">
+
+                                        <span><?php echo $mostrar['Hora Ingreso'] ?></span>
+                                    </td>
+                                    <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell" data-label="Inicio Almuerzo">
+
+                                        <span><?php echo $mostrar['Hora Colacion'] ?></span>
+                                    </td>
+                                    <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell" data-label="Fin Almuerzo">
+
+                                        <span><?php echo $mostrar['Hora Fin Colacion'] ?></span>
+                                    </td>
+                                    <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell" data-label="Salida">
+
+                                        <span><?php echo $mostrar['Hora Salida'] ?></span>
+                                    </td>
+                                    <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell bg-blue-50" data-label="Total Almuerzo">
+                                        <span><?php echo $mostrar['Total Colacion'] ?></span>
+                                    </td>
+                                    <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell bg-gray-10" data-label="Total Horas">
+
+                                        <span><?php echo $mostrar['Horas Final'] ?></span>
+                                    </td>
+                                    <td class="py-2 px-2 md:px-6 flex justify-center md:table-cell" data-label="Acciones">
+                                        <div class="flex space-x-2">
+                                            <button class="bg-blue-500 text-white p-1 md:p-2 rounded hover:bg-blue-600"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editar<?php echo $mostrar['ID'] ?>">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 md:h-4 md:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </button>
+                                            <button class="bg-red-500 text-white p-1 md:p-2 rounded hover:bg-red-600" data-bs-toggle="modal"
+                                                data-bs-target="#delete<?php echo $mostrar['ID'] ?>">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 md:h-4 md:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php
+                                include('ModalEditar.php');
+                                include('ModalDelete.php');
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
-<script src="js/jquery.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="script.js"></script>
 
 </html>

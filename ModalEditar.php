@@ -1,4 +1,4 @@
-<div class="modal fade" id="fincolacion2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editar<?php echo $mostrar['ID'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -7,21 +7,13 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?php
-      require 'hora.php';
-      ?>
       <form method="POST" action="recib_Update.php">
         <div class="modal-body">
           <div class="form-group">
-            <input type="hidden" name="accion" value="Fin_Colacion2">
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Fecha:</label>
-              <input type="date" name="fecha" class="form-control" value="<?php echo $hoy ?>" required="true">
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Hora:</label>
-              <input type="time" name="hora" class="form-control" value="<?php echo $hora ?>" required="true">
-            </div>
+            <input type="hidden" name="id" value="<?php echo $id ?>">
+            <input type="hidden" name="accion" value="Fin_Colacion">
+            <label for="recipient-name" class="col-form-label">Hora:</label>
+            <input type="time" id="end-time-1" name="hora" class="form-control" required="true">
           </div>
         </div>
         <div class="modal-footer">

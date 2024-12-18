@@ -15,7 +15,7 @@
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Hora:</label>
-            <input type="time" id="start-time-1" name="hora" class="form-control" required="true">
+            <input type="time" id="hora" name="hora" class="form-control" value="<?php echo $hora_actual ?>" required=" true">
           </div>
         </div>
         <div class="modal-footer">
