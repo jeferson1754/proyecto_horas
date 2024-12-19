@@ -52,3 +52,39 @@ $result = mysqli_query($conexion, $query);
 if (!$result) {
     die("La consulta falló: " . mysqli_error($conexion));
 }
+
+
+function formatearHora($hora)
+{
+    // Convertir la duración a un formato de horas y minutos
+    $horaFormato = date('H:i', strtotime($hora));
+    $horaParts = explode(":", $horaFormato);
+
+    // Verificar si las horas son 00, para mostrar "mins" en lugar de "hrs"
+    if ($horaParts[0] == "00") {
+        return $horaParts[1] . " mins";  // Si es "00", solo mostrar los minutos
+    } else {
+        return $horaFormato . " hrs";  // Si tiene horas, mostrar en el formato "HH:mm hrs"
+    }
+}
+
+function formatearHoraAMPM($hora)
+{
+    // Verificar si la hora es 00:00, en ese caso no mostrar AM o PM
+    if ($hora == "00:00" || $hora == "00:00:00") {
+        return '<span style="color: red;">' . $hora . '</span>';
+    }
+
+    // Convertir la hora a formato 24 horas
+    $horaFormato24 = date('H:i', strtotime($hora));
+
+    // Verificar si la hora es AM o PM
+    $horaAMPM = date('A', strtotime($hora));
+
+    // Convertir a formato de 12 horas con am/pm
+    if ($horaAMPM == "AM") {
+        return $horaFormato24 . " am";  // Si es AM, retornar en formato 24 horas + " am"
+    } else {
+        return $horaFormato24 . " pm";  // Si es PM, retornar en formato 24 horas + " pm"
+    }
+}

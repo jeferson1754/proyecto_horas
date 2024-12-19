@@ -22,6 +22,9 @@ $hora_actual = date("H:i");
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <script src="js/bootstrap.bundle.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
 
     <style>
         /* Custom responsive table styling */
@@ -132,30 +135,31 @@ $hora_actual = date("H:i");
                                 <tr class="border-b border-gray-200 hover:bg-gray-100 flex flex-col md:table-row">
                                     <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell" data-label="Fecha">
 
-                                        <span><?php echo $mostrar['Dia'] ?></span>
+                                        <span><?php echo date('d-m-Y', strtotime($mostrar['Dia'])); ?></span>
+
                                     </td>
                                     <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell" data-label="Entrada">
 
-                                        <span><?php echo $mostrar['Hora Ingreso'] ?></span>
+                                        <span><?php echo formatearHoraAMPM($mostrar['Hora Ingreso']) ?></span>
                                     </td>
                                     <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell" data-label="Inicio Almuerzo">
 
-                                        <span><?php echo $mostrar['Hora Colacion'] ?></span>
+                                        <span><?php echo formatearHoraAMPM($mostrar['Hora Colacion']) ?></span>
                                     </td>
                                     <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell" data-label="Fin Almuerzo">
 
-                                        <span><?php echo $mostrar['Hora Fin Colacion'] ?></span>
+                                        <span><?php echo formatearHoraAMPM($mostrar['Hora Fin Colacion']) ?></span>
                                     </td>
                                     <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell" data-label="Salida">
 
-                                        <span><?php echo $mostrar['Hora Salida'] ?></span>
+                                        <span><?php echo formatearHoraAMPM($mostrar['Hora Salida']) ?></span>
                                     </td>
                                     <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell bg-blue-50" data-label="Total Almuerzo">
-                                        <span><?php echo $mostrar['Total Colacion'] ?></span>
+                                        <span><?php echo formatearHora($mostrar['Total Colacion']) ?></span>
                                     </td>
                                     <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell bg-gray-10" data-label="Total Horas">
 
-                                        <span><?php echo $mostrar['Horas Final'] ?></span>
+                                        <span><?php echo formatearHora($mostrar['Horas Final']) ?></span>
                                     </td>
                                     <td class="py-2 px-2 md:px-6 flex justify-center md:table-cell" data-label="Acciones">
                                         <div class="flex space-x-2">

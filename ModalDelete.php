@@ -1,26 +1,129 @@
-<div class="modal fade" id="delete<?php echo $mostrar['ID'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Fin Colacion</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+<!-- Modal de Confirmación de Eliminación -->
+<div class="modal fade" id="delete<?php echo $mostrar['ID'] ?>" tabindex="-1" aria-labelledby="modalDelete" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-3 shadow">
+      <!-- Header -->
+      <div class="modal-header border-bottom-0 bg-danger bg-opacity-10 px-4 py-3">
+        <h5 class="modal-title text-danger fw-bold" id="modalDelete">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          Confirmar Eliminación
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form method="POST" action="recib_Update.php">
-        <div class="modal-body">
-          <div class="form-group">
-            <input type="hidden" name="id" value="<?php echo $id ?>">
-            <input type="hidden" name="accion" value="Fin_Colacion">
-            <label for="recipient-name" class="col-form-label">Hora:</label>
-            <input type="time" id="end-time-1" name="hora" class="form-control" required="true">
+
+      <form method="POST" action="recib_Delete.php">
+        <!-- Cuerpo del Modal -->
+        <div class="modal-body text-center p-4">
+          <input type="hidden" name="id" value="<?php echo $mostrar['ID'] ?>">
+
+          <!-- Mensaje de Advertencia -->
+          <div class="text-center mb-4">
+            <div class="alert alert-warning border-0 bg-warning bg-opacity-10 mb-4">
+              <p class="mb-0">¿Estás seguro de que deseas eliminar este registro? Esta acción no se puede deshacer.</p>
+            </div>
+          </div>
+
+          <!-- Detalles del Registro -->
+          <div class="card border-0 bg-light">
+            <div class="card-body p-4">
+              <!-- Fecha -->
+              <div class="mb-3">
+                <label class="text-muted small text-uppercase">Fecha del Registro</label>
+                <p class="h5 mb-0">
+                  <i class="bi bi-calendar3 me-2 text-primary"></i>
+                  <?php echo date('d-m-Y', strtotime($mostrar['Dia'])); ?>
+                </p>
+              </div>
+
+              <!-- Total Colación -->
+              <div class="mb-3">
+                <label class="text-muted small text-uppercase">Tiempo de Colación</label>
+                <p class="h5 mb-0">
+                  <i class="bi bi-clock-history me-2 text-primary"></i>
+                  <?php
+                  echo formatearHora($mostrar['Total Colacion']); // Salida: 40 mins
+                  ?>
+                </p>
+              </div>
+
+              <!-- Total Horas -->
+              <div>
+                <label class="text-muted small text-uppercase">Total Horas Trabajadas</label>
+                <p class="h5 mb-0">
+                  <i class="bi bi-clock me-2 text-primary"></i>
+                  <?php
+                  echo formatearHora($mostrar['Horas Final']); // Salida: 40 mins
+                  ?>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-primary">Guardar</button>
+
+        <!-- Footer -->
+        <div class="modal-footer border-top-0 px-4 pb-4">
+          <button type="button"
+            class="btn btn-light btn-lg px-4"
+            data-bs-dismiss="modal">
+            <i class="bi bi-x-lg me-2"></i>
+            Cancelar
+          </button>
+          <button type="submit"
+            class="btn btn-danger btn-lg px-4">
+            <i class="bi bi-trash3 me-2"></i>
+            Eliminar Registro
+          </button>
         </div>
+      </form>
     </div>
-    </form>
   </div>
 </div>
+
+<!-- Estilos Adicionales -->
+<style>
+  .modal-content {
+    border: none;
+  }
+
+  .alert {
+    border-radius: 0.5rem;
+  }
+
+  .card {
+    border-radius: 0.5rem;
+  }
+
+  .btn-danger {
+    background-color: #dc3545;
+    border: none;
+    transition: all 0.2s;
+  }
+
+  .btn-danger:hover {
+    background-color: #bb2d3b;
+    transform: translateY(-1px);
+  }
+
+  .btn-light {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+  }
+
+  .btn-light:hover {
+    background-color: #e9ecef;
+  }
+
+  /* Animación del modal */
+  .modal.fade .modal-dialog {
+    transition: transform 0.2s ease-out;
+  }
+
+  .modal.fade .modal-content {
+    transform: scale(0.95);
+    transition: transform 0.2s ease-out;
+  }
+
+  .modal.show .modal-content {
+    transform: scale(1);
+  }
+</style>
