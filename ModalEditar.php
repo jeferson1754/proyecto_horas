@@ -11,7 +11,7 @@
       </div>
 
       <!-- Formulario -->
-      <form method="POST" action="recib_Update.php" class="needs-validation" novalidate>
+      <form method="POST" action="recib_Update.php" class="needs-validation">
         <div class="modal-body px-4 py-4">
           <input type="hidden" name="id" value="<?php echo $mostrar['ID'] ?>">
 
@@ -45,6 +45,7 @@
                 id="colacion"
                 name="colacion"
                 class="form-control form-control-lg"
+                min="<?php echo $mostrar['Hora Ingreso'] ?>"
                 value="<?php echo $mostrar['Hora Colacion'] ?>"
                 required
                 <?php echo (empty($mostrar['Hora Ingreso']) || $mostrar['Hora Ingreso'] === '00:00:00') ? 'disabled' : ''; ?>>
@@ -66,6 +67,7 @@
                 id="fin_colacion"
                 name="fin_colacion"
                 class="form-control form-control-lg"
+                min="<?php echo $mostrar['Hora Colacion'] ?>"
                 value="<?php echo $mostrar['Hora Fin Colacion'] ?>"
                 required
                 <?php echo (empty($mostrar['Hora Colacion']) || $mostrar['Hora Colacion'] === '00:00:00') ? 'disabled' : ''; ?>>
@@ -86,6 +88,7 @@
                 id="salida"
                 name="salida"
                 class="form-control form-control-lg"
+                min="<?php echo $mostrar['Hora Fin Colacion'] ?>"
                 value="<?php echo $mostrar['Hora Salida'] ?>"
                 required
                 <?php echo (empty($mostrar['Hora Fin Colacion']) || $mostrar['Hora Fin Colacion'] === '00:00:00') ? 'disabled' : ''; ?>>
@@ -114,62 +117,11 @@
   </div>
 </div>
 
-<!-- Estilos adicionales -->
-<style>
-  .modal-content {
-    border: none;
-  }
-
-  .form-control:focus {
-    border-color: #0d6efd;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-  }
-
-  .input-group-text {
-    border: 1px solid #ced4da;
-  }
-
-  .form-text {
-    color: #6c757d;
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-  }
-
-  .btn-primary {
-    background-color: #0d6efd;
-    border: none;
-    transition: all 0.2s;
-  }
-
-  .btn-primary:hover {
-    background-color: #0b5ed7;
-    transform: translateY(-1px);
-  }
-
-  .btn-light {
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-  }
-
-  .btn-light:hover {
-    background-color: #e9ecef;
-  }
-
-  /* Estilos para campos deshabilitados */
-  .form-control:disabled {
-    background-color: #e9ecef;
-    cursor: not-allowed;
-  }
-
-  /* Animación suave para transiciones */
-  .form-control,
-  .btn {
-    transition: all 0.2s ease-in-out;
-  }
-</style>
 
 <!-- Script para validación y mejora de UX -->
+
 <script>
+  /*
   document.addEventListener('DOMContentLoaded', function() {
     // Validación del formulario
     var forms = document.querySelectorAll('.needs-validation')
@@ -218,4 +170,5 @@
 
     validateTimeSequence()
   })
+  */
 </script>

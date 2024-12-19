@@ -64,38 +64,6 @@
   </div>
 </div>
 
-<!-- Estilos adicionales -->
-<style>
-  .modal-content {
-    border: none;
-  }
-
-  .form-control:focus {
-    border-color: #0d6efd;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-  }
-
-  .btn-primary {
-    background-color: #0d6efd;
-    border: none;
-    transition: all 0.2s;
-  }
-
-  .btn-primary:hover {
-    background-color: #0b5ed7;
-    transform: translateY(-1px);
-  }
-
-  .btn-light {
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-  }
-
-  .btn-light:hover {
-    background-color: #e9ecef;
-  }
-</style>
-
 <!-- Script para validación -->
 <script>
   // Ejemplo de validación de formulario

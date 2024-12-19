@@ -2,11 +2,6 @@
 
 require 'bd.php';
 
-date_default_timezone_set('America/Santiago');
-
-$hoy = date("Y-m-d");
-$hora_actual = date("H:i");
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,42 +10,178 @@ $hora_actual = date("H:i");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SeguimientoHoras</title>
+
+    <!-- TailwindCSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="https://kit.fontawesome.com/8846655159.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS (Consolida la versión de Bootstrap) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://kit.fontawesome.com/8846655159.js" crossorigin="anonymous"></script>
 
-    <style>
-        /* Custom responsive table styling */
-        @media screen and (max-width: 768px) {
-            .responsive-table tbody tr {
-                display: block;
-                margin-bottom: 1rem;
-                border: 1px solid #ddd;
-            }
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-            .responsive-table tbody td {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 0.5rem;
-                border-bottom: 1px solid #eee;
-            }
-
-            .responsive-table tbody td::before {
-                content: attr(data-label);
-                font-weight: bold;
-                margin-right: 10px;
-            }
-        }
-    </style>
+    <!-- Bootstrap Bundle JS (Bootstrap y Popper.js combinados) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+
+
+<style>
+    /* Custom responsive table styling */
+    @media screen and (max-width: 768px) {
+        .responsive-table tbody tr {
+            display: block;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+        }
+
+        .responsive-table tbody td {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .responsive-table tbody td::before {
+            content: attr(data-label);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    }
+
+    .modal-content {
+        border: none;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .input-group-text {
+        border: 1px solid #ced4da;
+    }
+
+    .form-text {
+        color: #6c757d;
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+        transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+        background-color: #0b5ed7;
+        transform: translateY(-1px);
+    }
+
+    .btn-light {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+    }
+
+    .btn-light:hover {
+        background-color: #e9ecef;
+    }
+
+    /* Estilos para campos deshabilitados */
+    .form-control:disabled {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+    }
+
+    /* Animación suave para transiciones */
+    .form-control,
+    .btn {
+        transition: all 0.2s ease-in-out;
+    }
+
+    .modal-content {
+        border: none;
+    }
+
+    .alert {
+        border-radius: 0.5rem;
+    }
+
+    .card {
+        border-radius: 0.5rem;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        transition: all 0.2s;
+    }
+
+    .btn-danger:hover {
+        background-color: #bb2d3b;
+        transform: translateY(-1px);
+    }
+
+    .btn-light {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+    }
+
+    .btn-light:hover {
+        background-color: #e9ecef;
+    }
+
+    /* Animación del modal */
+    .modal.fade .modal-dialog {
+        transition: transform 0.2s ease-out;
+    }
+
+    .modal.fade .modal-content {
+        transform: scale(0.95);
+        transition: transform 0.2s ease-out;
+    }
+
+    .modal.show .modal-content {
+        transform: scale(1);
+    }
+
+    .modal-content {
+        border: none;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+        transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+        background-color: #0b5ed7;
+        transform: translateY(-1px);
+    }
+
+    .btn-light {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+    }
+
+    .btn-light:hover {
+        background-color: #e9ecef;
+    }
+</style>
 
 <body class="bg-gray-100 min-h-screen">
     <div class="container mx-auto px-4 py-8">
@@ -60,7 +191,7 @@ $hora_actual = date("H:i");
                 <div class="absolute top-2 left-2 z-10">
 
                     <button class="bg-gray-200 text-gray-700 p-2 rounded-full hover:bg-gray-300 transition duration-300 ease-in-out shadow-md">
-                        <a href="dashboard.html">
+                        <a href="dashboard.php">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                             </svg>
@@ -159,7 +290,7 @@ $hora_actual = date("H:i");
                                     </td>
                                     <td class="py-2 px-2 md:px-6 flex justify-between md:table-cell bg-gray-10" data-label="Total Horas">
 
-                                        <span><?php echo formatearHora($mostrar['Horas Final']) ?></span>
+                                        <span><?php echo formatHoras($mostrar['Horas Final']) ?></span>
                                     </td>
                                     <td class="py-2 px-2 md:px-6 flex justify-center md:table-cell" data-label="Acciones">
                                         <div class="flex space-x-2">
@@ -191,7 +322,7 @@ $hora_actual = date("H:i");
         </div>
     </div>
 
-    <script src="./js/script.js"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>

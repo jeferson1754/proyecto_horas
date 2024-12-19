@@ -8,7 +8,7 @@ $conexion = mysqli_connect($servidor, $usuario, $password) or die("No se ha podi
 mysqli_query($conexion, "SET SESSION collation_connection ='utf8_unicode_ci'");
 $db = mysqli_select_db($conexion, $basededatos) or die("Upps! Error en conectar a la Base de Datos");
 
-
+$conexion->set_charset("utf8");
 //Linea para los caracteres �
 
 if (!mysqli_set_charset($conexion, "utf8mb4")) {
@@ -54,6 +54,31 @@ if (!$result) {
 }
 
 
+
+date_default_timezone_set('America/Santiago');
+
+$mes = date("m"); // Mes actual
+$año = date("Y"); // Año actual
+$hoy = date("Y-m-d");
+$hora_actual = date("H:i");
+
+$meses = [
+    1 => 'Enero',
+    2 => 'Febrero',
+    3 => 'Marzo',
+    4 => 'Abril',
+    5 => 'Mayo',
+    6 => 'Junio',
+    7 => 'Julio',
+    8 => 'Agosto',
+    9 => 'Septiembre',
+    10 => 'Octubre',
+    11 => 'Noviembre',
+    12 => 'Diciembre'
+];
+
+
+//FUNCIONES 
 function formatearHora($hora)
 {
     // Convertir la duración a un formato de horas y minutos
@@ -66,6 +91,19 @@ function formatearHora($hora)
     } else {
         return $horaFormato . " hrs";  // Si tiene horas, mostrar en el formato "HH:mm hrs"
     }
+}
+
+// Función para convertir horas trabajadas a formato "HH h MM m"
+function formatHoras($horasTrabajadas)
+{
+    list($horas, $minutos, $segundos) = explode(":", $horasTrabajadas);
+    return "$horas h $minutos m";
+}
+
+function formatHorassimple($horasTrabajadas)
+{
+    list($horas, $minutos, $segundos) = explode(":", $horasTrabajadas);
+    return "$horas:$minutos";
 }
 
 function formatearHoraAMPM($hora)
@@ -87,4 +125,24 @@ function formatearHoraAMPM($hora)
     } else {
         return $horaFormato24 . " pm";  // Si es PM, retornar en formato 24 horas + " pm"
     }
+}
+
+
+function obtenerDiasLaborables($mes, $año)
+{
+    $primerDiaMes = strtotime("first day of $año-$mes");
+    $ultimoDiaMes = strtotime("last day of $año-$mes");
+    $diasLaborables = 0;
+
+    // Recorremos todos los días del mes
+    for ($dia = $primerDiaMes; $dia <= $ultimoDiaMes; $dia = strtotime("+1 day", $dia)) {
+        $diaSemana = date("N", $dia); // Día de la semana (1 = lunes, 7 = domingo)
+
+        // Si el día no es sábado (6) ni domingo (7), contamos como día laborable
+        if ($diaSemana < 6) {
+            $diasLaborables++;
+        }
+    }
+
+    return $diasLaborables;
 }
