@@ -4,11 +4,8 @@ include 'bd.php';
 
 
 $idRegistros  = $_POST['id'];
-//$idRegistros = 7;
 $hora         = $_POST['hora'];
-//$hora="16:07:00";
 $accion       = $_POST['accion'];
-
 $fecha       = $_POST['fecha'];
 
 
