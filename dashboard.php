@@ -221,7 +221,7 @@ try {
 
             <div class="col-md-6">
                 <div class="bg-white rounded-lg p-4 dashboard-card">
-                    <h5 class="text-xl font-semibold mb-4 text-center">Variaciones en la Hora de Ingreso</h5>
+                    <h5 class="text-xl font-semibold mb-4 text-center">Variaciones en la Hora de Ingreso y Salida</h5>
                     <canvas id="entryTimeChart"></canvas>
                 </div>
             </div>
@@ -243,6 +243,8 @@ try {
     <script>
         //  Ordenar de mas antiguo a mas actual
         //workData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        
         // Calculate Dashboard Metrics
         function calculateMetrics() {
 
@@ -314,21 +316,31 @@ try {
                 }
             });
 
-            // Entry Time Variations Chart
             const entryTimeChart = new Chart(document.getElementById('entryTimeChart'), {
                 type: 'line',
                 data: {
                     labels: workData.map(d => d.date),
                     datasets: [{
-                        label: 'Horas de Entrada',
-                        data: workData.map(d => {
-                            const [hours, minutes] = d.entryTime.split(':').map(Number);
-                            return hours + minutes / 60; // Convertir la hora en un valor numérico decimal
-                        }),
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        tension: 0.1
-                    }]
+                            label: 'Horas de Entrada',
+                            data: workData.map(d => {
+                                const [hours, minutes] = d.entryTime.split(':').map(Number);
+                                return hours + minutes / 60; // Convertir la hora en un valor numérico decimal
+                            }),
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Horas de Salida',
+                            data: workData.map(d => {
+                                const [hours, minutes] = d.exitTime.split(':').map(Number);
+                                return hours + minutes / 60; // Convertir la hora en un valor numérico decimal
+                            }),
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            tension: 0.1
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
@@ -363,6 +375,7 @@ try {
                     }
                 }
             });
+
 
 
         }
