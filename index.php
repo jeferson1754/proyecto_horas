@@ -187,7 +187,7 @@ $hora_actual = date("H:i");
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
