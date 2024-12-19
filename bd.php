@@ -12,7 +12,7 @@ $conexion->set_charset("utf8");
 //Linea para los caracteres �
 
 if (!mysqli_set_charset($conexion, "utf8mb4")) {
-    printf("Error loading character set utf8mb4: %s\n", mysqli_error($conn));
+    printf("Error loading character set utf8mb4: %s\n", mysqli_error($conexion));
     exit();
 }
 
