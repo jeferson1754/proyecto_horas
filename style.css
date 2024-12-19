@@ -1,0 +1,149 @@
+
+    /* Custom responsive table styling */
+    @media screen and (max-width: 768px) {
+        .responsive-table tbody tr {
+            display: block;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+        }
+
+        .responsive-table tbody td {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .responsive-table tbody td::before {
+            content: attr(data-label);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    }
+
+    .modal-content {
+        border: none;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .input-group-text {
+        border: 1px solid #ced4da;
+    }
+
+    .form-text {
+        color: #6c757d;
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+        transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+        background-color: #0b5ed7;
+        transform: translateY(-1px);
+    }
+
+    .btn-light {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+    }
+
+    .btn-light:hover {
+        background-color: #e9ecef;
+    }
+
+    /* Estilos para campos deshabilitados */
+    .form-control:disabled {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+    }
+
+    /* Animación suave para transiciones */
+    .form-control,
+    .btn {
+        transition: all 0.2s ease-in-out;
+    }
+
+    .modal-content {
+        border: none;
+    }
+
+    .alert {
+        border-radius: 0.5rem;
+    }
+
+    .card {
+        border-radius: 0.5rem;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        transition: all 0.2s;
+    }
+
+    .btn-danger:hover {
+        background-color: #bb2d3b;
+        transform: translateY(-1px);
+    }
+
+    .btn-light {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+    }
+
+    .btn-light:hover {
+        background-color: #e9ecef;
+    }
+
+    /* Animación del modal */
+    .modal.fade .modal-dialog {
+        transition: transform 0.2s ease-out;
+    }
+
+    .modal.fade .modal-content {
+        transform: scale(0.95);
+        transition: transform 0.2s ease-out;
+    }
+
+    .modal.show .modal-content {
+        transform: scale(1);
+    }
+
+    .modal-content {
+        border: none;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+        transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+        background-color: #0b5ed7;
+        transform: translateY(-1px);
+    }
+
+    .btn-light {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+    }
+
+    .btn-light:hover {
+        background-color: #e9ecef;
+    }

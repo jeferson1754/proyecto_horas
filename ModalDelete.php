@@ -52,7 +52,7 @@
                 <p class="h5 mb-0">
                   <i class="bi bi-clock me-2 text-primary"></i>
                   <?php
-                  echo formatearHora($mostrar['Horas Final']); // Salida: 40 mins
+                  echo formatHoras($mostrar['Horas Final']); // Salida: 40 mins
                   ?>
                 </p>
               </div>

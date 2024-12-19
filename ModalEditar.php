@@ -5,7 +5,7 @@
       <!-- Header -->
       <div class="modal-header border-bottom-0 bg-light">
         <h5 class="modal-title fw-bold" id="modalEdicion">
-          <i class="bi bi-clock-history me-2"></i>Editar Registro de Horas
+          <i class="bi bi-clock-history me-2"></i>Editar Registro de <?php echo date('d-m-Y', strtotime($mostrar['Dia'])); ?>
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
