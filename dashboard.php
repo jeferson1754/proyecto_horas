@@ -221,7 +221,7 @@ try {
 
             <div class="col-md-6">
                 <div class="bg-white rounded-lg p-4 dashboard-card">
-                    <h5 class="text-xl font-semibold mb-4 text-center">Variaciones en la Hora de Ingreso y Salida</h5>
+                    <h5 class="text-xl font-semibold mb-4 text-center">Variaciones en las Horas de Ingreso y Salida</h5>
                     <canvas id="entryTimeChart"></canvas>
                 </div>
             </div>
@@ -244,7 +244,7 @@ try {
         //  Ordenar de mas antiguo a mas actual
         //workData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-        
+
         // Calculate Dashboard Metrics
         function calculateMetrics() {
 
