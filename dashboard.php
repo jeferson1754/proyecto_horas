@@ -204,7 +204,7 @@ try {
                             </svg>
                         </div>
                         <div>
-                            <h5 class="text-gray-600 text-sm">Productividad en <?php echo $meses[$mes]; ?></h5>
+                            <h5 class="text-gray-600 text-sm">Productividad en <?php echo $meses[$mesNumero];?></h5>
                             <p id="productivityScore" class="text-2xl font-bold text-gray-800"><?php echo $productividad; ?></p>
                         </div>
                     </div>

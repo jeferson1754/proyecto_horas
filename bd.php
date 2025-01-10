@@ -20,7 +20,7 @@ if (!mysqli_set_charset($conexion, "utf8mb4")) {
 if (mysqli_connect_errno()) {
     die("No se pudo conectar a la base de datos: " . mysqli_connect_error());
 }
-
+/*
 $max_queries_per_hour = 500;
 
 $current_time = date("Y-m-d H:i:s", time());
@@ -53,11 +53,12 @@ if (!$result) {
     die("La consulta falló: " . mysqli_error($conexion));
 }
 
-
+*/
 
 date_default_timezone_set('America/Santiago');
 
 $mes = date("m"); // Mes actual
+$mesNumero = (int)$mes; // Esto convierte "01" a 1
 $año = date("Y"); // Año actual
 $hoy = date("Y-m-d");
 $hora_actual = date("H:i");
