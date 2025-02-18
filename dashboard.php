@@ -61,7 +61,7 @@ try {
             TIME_FORMAT(`Hora Salida`, '%H:%i') AS exitTime
         FROM horas  
         ORDER BY `date` DESC
-        LIMIT 7;
+        LIMIT 5;
     ");
     $stmt->execute();
     $result = $stmt->get_result();
