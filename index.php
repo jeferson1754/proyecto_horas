@@ -47,6 +47,15 @@ require 'bd.php';
                         </a>
                     </button>
                 </div>
+
+                <div class="absolute top-2 right-2 z-10">
+
+                    <button class="bg-gray-200 text-gray-700 p-2 rounded-full hover:bg-gray-300 transition duration-300 ease-in-out shadow-md">
+                        <a href="correo.php">
+                            <i class="fas fa-arrows-rotate"></i>
+                        </a>
+                    </button>
+                </div>
                 <div id="date" class="text-center mt-4 text-2xl md:text-4xl text-gray-600 p-4 md:p-6"></div>
             </div>
 
